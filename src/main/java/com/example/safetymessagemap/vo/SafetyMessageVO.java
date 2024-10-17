@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 public class SafetyMessageVO {
-    private Long sn;
-    private String msgCn;
-    private String rcptnRgnNm;
-    private LocalDateTime crtDt;
-    private LocalDateTime regYmd;
-    private String emegstepNm;
-    private String dstSeNm;
-    private LocalDateTime mdfcnYmd;
+    private Long sn;                // 일련번호
+    private String msgCn;           // 메시지 내용
+    private String rcptnRgnNm;      // 수신 지역명
+    private LocalDateTime crtDt;    // 생성 일시
+    private LocalDateTime regYmd;   // 등록 일자
+    private String emegstepNm;      // 긴급 단계 명
+    private String dstSeNm;         // 재해 구분 명
+    private LocalDateTime mdfcnYmd; // 수정 일자
 }
