@@ -1,0 +1,3 @@
+@echo off
+cd /d "C:\Users\user1\Documents\GitHub\kh_semi"
+git pull origin main
