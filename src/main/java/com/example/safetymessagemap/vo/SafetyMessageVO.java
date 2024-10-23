@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class SafetyMessageVO {
     private Long sn;                // 일련번호
     private String msgCn;           // 메시지 내용

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.safetymessagemap.mapper.MessageMapper">
+<mapper namespace="com.example.safetyMessageMap.mapper.SafetyMessageMapper">
+    <!-- SN으로 데이터 조회 -->
+    <select id="findBySn" parameterType="int" resultType="com.example.safetymessagemap.vo.SafetyMessageVO">
+        SELECT * FROM api_data WHERE SN = #{sn}
+    </select>
 
-    <delete id="resetSafetyMessageTable">
-        DELETE FROM SAFETY_MESSAGE
-    </delete>
 </mapper>
