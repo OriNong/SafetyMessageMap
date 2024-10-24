@@ -50,4 +50,8 @@
         WHERE sn = #{sn}
     </update>
 
+    <delete id="resetMessage">
+        DELETE
+        FROM safety_message
+    </delete>
 </mapper>

@@ -22,6 +22,7 @@ public class SafetyMessageMapApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        safetyMessageService.resetSafetyMessageTable();
         safetyMessageService.fetchSafetyDataFromApi();
     }
 }

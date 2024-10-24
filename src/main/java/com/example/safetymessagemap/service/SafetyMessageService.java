@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -33,8 +34,14 @@ public class SafetyMessageService {
     @Value("${safetyData-serviceKey}")
     private String safetyDataServiceKey;
 
+    // 24시 00분 00초가 되면 db 테이블 초기화
+    @Scheduled(cron = "59 59 23 * * *", zone = "Asia/Seoul")
+    public void resetSafetyMessageTable() {
+        safetyMessageMapper.resetMessage();
+    }
+
     // Api를 호출해 Json 데이터를 가져오는 메서드
-    //@Scheduled(fixedDelay = 2000)
+    @Scheduled(fixedDelay = 2000)
     public void fetchSafetyDataFromApi(){
         String safetyRequestUrl = apiUrlBuilder.getSafetyServiceURL(safetyDataServiceKey);
         log.info(safetyRequestUrl);
@@ -121,6 +128,9 @@ public class SafetyMessageService {
             safetyMessageMapper.insertMessage(message);
         }
     }
+
+
+
     // Json 데이터 DB 조회
     private void findExistingSafetyData(){}
 
