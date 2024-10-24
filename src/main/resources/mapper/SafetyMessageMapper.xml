@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.safetyMessageMap.mapper.SafetyMessageMapper">
-    <!-- SN으로 데이터 조회 -->
-    <select id="findBySn" parameterType="int" resultType="com.example.safetymessagemap.vo.SafetyMessageVO">
-        SELECT * FROM api_data WHERE SN = #{sn}
+<mapper namespace="com.example.safetymessagemap.mapper.SafetyMessageMapper">
+    <select id="findBySn" resultType="com.example.safetymessagemap.vo.SafetyMessageVO">
+        SELECT
+            sn,
+            msg_cn as msgCn,
+            rcptn_rgn_nm as rcptnRgnNm,
+            crt_dt as crtDt,
+            reg_ymd as regYmd,
+            emeg_step_nm as emegstepNm,
+            dst_se_nm as dstSeNm,
+            mdfcn_ymd as mdfcnYmd
+        FROM safety_message
+        WHERE sn = #{sn}
     </select>
+
+    <insert id="insertMessage" parameterType="com.example.safetymessagemap.vo.SafetyMessageVO">
+        INSERT INTO safety_message (
+            sn,
+            msg_cn,
+            rcptn_rgn_nm,
+            crt_dt,
+            reg_ymd,
+            emeg_step_nm,
+            dst_se_nm,
+            mdfcn_ymd
+        ) VALUES (
+                     #{sn},
+                     #{msgCn},
+                     #{rcptnRgnNm},
+                     #{crtDt},
+                     #{regYmd},
+                     #{emegstepNm},
+                     #{dstSeNm},
+                     #{mdfcnYmd}
+                 )
+    </insert>
+
+    <update id="updateMessage" parameterType="com.example.safetymessagemap.vo.SafetyMessageVO">
+        UPDATE safety_message
+        SET
+            msg_cn = #{msgCn},
+            rcptn_rgn_nm = #{rcptnRgnNm},
+            crt_dt = #{crtDt},
+            reg_ymd = #{regYmd},
+            emeg_step_nm = #{emegstepNm},
+            dst_se_nm = #{dstSeNm},
+            mdfcn_ymd = #{mdfcnYmd}
+        WHERE sn = #{sn}
+    </update>
 
 </mapper>

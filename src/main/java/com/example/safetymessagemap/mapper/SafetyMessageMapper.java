@@ -9,11 +9,9 @@ import java.util.Optional;
 
 @Mapper
 public interface SafetyMessageMapper {
-    void insertSafetyMessage(SafetyMessageVO safetyMessageVO);
+    SafetyMessageVO findBySn(Long sn);
 
-    List<SafetyMessageVO> selectSafetyMessageByRegion(String rcptnRgnNm);
+    void insertMessage(SafetyMessageVO message);
 
-    Optional<SafetyMessageVO> selectMessageByRegionName(String regionName);
-
-    SafetyMessageVO findBySn(@Param("sn") int sn);
+    void updateMessage(SafetyMessageVO message);
 }
