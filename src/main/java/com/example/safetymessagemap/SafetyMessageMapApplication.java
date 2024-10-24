@@ -1,9 +1,7 @@
 package com.example.safetymessagemap;
 
 import com.example.safetymessagemap.service.SafetyMessageService;
-import com.example.safetymessagemap.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

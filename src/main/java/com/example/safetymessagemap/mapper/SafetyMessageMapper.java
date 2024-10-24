@@ -2,10 +2,6 @@ package com.example.safetymessagemap.mapper;
 
 import com.example.safetymessagemap.vo.SafetyMessageVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
-import java.util.Optional;
 
 @Mapper
 public interface SafetyMessageMapper {
