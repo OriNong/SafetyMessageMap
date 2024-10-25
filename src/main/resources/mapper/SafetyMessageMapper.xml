@@ -15,6 +15,21 @@
         WHERE sn = #{sn}
     </select>
 
+    <select id="findMessageByRegion" parameterType="string" resultType="com.example.safetymessagemap.vo.SafetyMessageVO">
+        SELECT
+            sn,
+            msg_cn as msgCn,
+            rcptn_rgn_nm as rcptnRgnNm,
+            crt_dt as crtDt,
+            reg_ymd as regYmd,
+            emeg_step_nm as emegstepNm,
+            dst_se_nm as dstSeNm,
+            mdfcn_ymd as mdfcnYmd
+        FROM safety_message
+        WHERE rcptn_rgn_nm LIKE '%' || #{region} || '%'
+           OR rcptn_rgn_nm = SUBSTR(#{region}, 1, INSTR(#{region}, ' ') - 1) || ' 전체'
+    </select>
+
     <insert id="insertMessage" parameterType="com.example.safetymessagemap.vo.SafetyMessageVO">
         INSERT INTO safety_message (
             sn,

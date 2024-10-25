@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -41,7 +42,7 @@ public class SafetyMessageService {
     }
 
     // Api를 호출해 Json 데이터를 가져오는 메서드
-    @Scheduled(fixedDelay = 2000)
+    //@Scheduled(fixedDelay = 2000)
     public void fetchSafetyDataFromApi(){
         String safetyRequestUrl = apiUrlBuilder.getSafetyServiceURL(safetyDataServiceKey);
         log.info(safetyRequestUrl);
@@ -82,6 +83,7 @@ public class SafetyMessageService {
             log.info("처리된 안전 메시지 수: {}", processedCount);
         }
     }
+    // 추출된 Json 데이터 body 배열의 원소를 SafetyMessageVO로 매핑해 객체 생성 후 리턴
     private SafetyMessageVO jsonArrayToVO(JsonNode node) {
         return SafetyMessageVO.builder()
                 .sn(node.get("SN").asLong())
@@ -128,7 +130,12 @@ public class SafetyMessageService {
             safetyMessageMapper.insertMessage(message);
         }
     }
-
+    // 지역명으로 메시지 DB 조회 후 반환
+    public List<SafetyMessageVO> getSafetyMessageByRegion(String region) {
+        log.info(region);
+        log.info(safetyMessageMapper.findMessageByRegion(region).toString());
+        return safetyMessageMapper.findMessageByRegion(region);
+    }
 
 
     // Json 데이터 DB 조회
