@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class DateUtil {
     /**
      * 현재 날짜를 yyyyMMdd 형식으로 반환하는 메서드
-     * @return
+     * @return : String
      */
     public static String getCurrentDate() {
         // 날짜 형식 지정
