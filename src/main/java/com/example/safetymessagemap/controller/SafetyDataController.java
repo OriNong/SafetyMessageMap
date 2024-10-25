@@ -22,7 +22,8 @@ public class SafetyDataController {
      * @return : List<SafetyMessageVO>
      */
     @GetMapping("/alerts") // 추후 수정
-    public List<SafetyMessageVO> getAlerts(@RequestParam(required = false, defaultValue = "경기도 김포시") String region) {
+    public List<SafetyMessageVO> getMessageByRegion(@RequestParam(required = false, defaultValue = "경기도 김포시") String region) {
+        // defaultValue는 동작 테스트를 하기 위해 넣어둔 값 추후 삭제
         return safetyMessageService.getSafetyMessageByRegion(region);
     }
 }
