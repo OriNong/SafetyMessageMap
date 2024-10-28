@@ -132,8 +132,6 @@ public class SafetyMessageService {
     }
     // 지역명으로 메시지 DB 조회 후 반환
     public List<SafetyMessageVO> getSafetyMessageByRegion(String region) {
-        //log.info(region);
-        //log.info(safetyMessageMapper.findMessageByRegion(region).toString());
         return safetyMessageMapper.findMessageByRegion(region);
     }
 
