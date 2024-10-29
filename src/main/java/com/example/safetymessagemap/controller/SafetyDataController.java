@@ -23,7 +23,7 @@ public class SafetyDataController {
      * @param region : html에서 받아온 지역명
      * @return : List<SafetyMessageVO>
      */
-    @GetMapping("/alerts") // 추후 수정
+    @GetMapping("/message") // 추후 수정
     public Model getMessageByRegion(@RequestParam(required = false, defaultValue = "경기도 김포시") String region, Model model) {
         // defaultValue는 동작 테스트를 하기 위해 넣어둔 값 추후 삭제
         List<SafetyMessageVO> messageList = safetyMessageService.getSafetyMessageByRegion(region);
@@ -41,14 +41,4 @@ public class SafetyDataController {
         return model;
     }
 
-    @PostMapping("/disaster")
-    @ResponseBody
-    public String getDisasterMessage(@RequestParam("region") String region,
-                                     @RequestParam("subregion") String subregion) {
-        return findDisasterMessage(region, subregion);
-    }
-
-    private String findDisasterMessage(String region, String subregion) {
-        return "재난문자 예시: " + region + " " + subregion + " 지역의 재난 안내";
-    }
 }

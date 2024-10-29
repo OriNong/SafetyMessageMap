@@ -1,36 +1,59 @@
 body {
-  font-family: Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-  overflow: hidden;
-} 
-
-#korea-map { 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  transform: translateX(100px);
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow: hidden;
 }
 
-#region-map { 
-  height: 70%;
-  width: 50%;
-  display: none;
-  position: fixed;
-  box-sizing: border-box;
-  padding: 10px;
-	transform: translateY(-15%);
+#korea-map, #region-map, #msgBox {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 1s ease;
+}
+
+#korea-map {
+    left: 50%;
+    transform: translate(-30%, -35%);
+    z-index: 2;
+}
+
+#region-map {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    z-index: 1;
+}
+
+#msgBox {
+    top: 150px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    visibility: hidden;
+    transition: all 1s ease;
+    z-index: 0;
+    width: 56vh;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    text-align: left;
+    color: #333;
+    max-height: 75%;
+    overflow-y: auto;
 }
 
 #xButton {
     cursor: pointer;
     position: fixed;
     top: 20px;
-    left: 20px; 
+    left: 20px;
     font-size: 12px;
     color: white;
     z-index: 1000;
@@ -38,46 +61,154 @@ body {
     padding: 5px;
 }
 
-#msgBox {
-  height: auto;
-  width: auto;
-  display: none;
-  padding: 10px;
-	transform: translateX(50%);
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-	border-radius: 10px;
-}
-
 header {
-  background: #333;
-  color: #fff;
-  padding: 10px 20px;
-  text-align: center;
+    background: #333;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 3;
 }
 
 nav {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
 nav a {
-  color: #fff;
-  margin: 0 15px;
-  text-decoration: none;
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
 }
 
 main {
-  padding: 20px;
+    padding: 20px;
 }
 
-path {
-  transition: 0.5s;
+#korea-map path,
+#region-map path {
+    transition: 0.5s;
 }
 
-path:hover {
-  cursor: pointer;
-  fill: yellowgreen;
+#korea-map path:hover,
+#region-map path:hover {
+    cursor: pointer;
+    fill: yellowgreen;
 }
 
-.clicked {
-  fill: yellowgreen;
+#region-map path.clicked {
+    fill: yellowgreen;
+}
+/* 메시지 박스 스타일 */
+#msgBox {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.messages-wrapper {
+    margin-top: 20px;
+}
+
+.message-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.message-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.message-header {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.disaster-type {
+    background: #2196F3;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+}
+
+.emergency-level {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.message-content {
+    margin: 15px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+    font-size: 14px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* 안전안내 스타일 */
+.emergency-level1 {
+    border-left: 4px solid #4CAF50;
+}
+.emergency-level1 .emergency-level {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+/* 긴급재난 스타일 */
+.emergency-level2 {
+    border-left: 4px solid #FF5722;
+}
+.emergency-level2 .emergency-level {
+    background: #FBE9E7;
+    color: #E64A19;
+}
+
+/* 위급재난 스타일 */
+.emergency-level3 {
+    border-left: 4px solid #D32F2F;
+}
+.emergency-level3 .emergency-level {
+    background: #FFEBEE;
+    color: #C62828;
+}
+
+.region {
+    font-weight: 500;
+}
+
+.date {
+    color: #888;
+}
+
+#address-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#address-section p {
+    margin: 0;
+    font-size: 15px;
+    color: #444;
+}
+
+#address {
+    font-weight: 500;
+    color: #2196F3;
 }

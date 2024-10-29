@@ -42,7 +42,7 @@ public class SafetyMessageService {
     }
 
     // Api를 호출해 Json 데이터를 가져오는 메서드
-    @Scheduled(fixedDelay = 2000)
+    //@Scheduled(fixedDelay = 2000)
     public void fetchSafetyDataFromApi(){
         String safetyRequestUrl = apiUrlBuilder.getSafetyServiceURL(safetyDataServiceKey);
         log.info(safetyRequestUrl);
