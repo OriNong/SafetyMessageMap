@@ -2,6 +2,7 @@ package com.example.safetymessagemap.controller;
 
 import com.example.safetymessagemap.service.SafetyMessageService;
 import com.example.safetymessagemap.vo.SafetyMessageVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Controller
 public class SafetyDataController {
 
@@ -23,22 +27,23 @@ public class SafetyDataController {
      * @param region : html에서 받아온 지역명
      * @return : List<SafetyMessageVO>
      */
-    @GetMapping("/message") // 추후 수정
-    public Model getMessageByRegion(@RequestParam(required = false, defaultValue = "경기도 김포시") String region, Model model) {
-        // defaultValue는 동작 테스트를 하기 위해 넣어둔 값 추후 삭제
+    @GetMapping("/message")
+    public @ResponseBody Map<String, Object> getMessageByRegion(@RequestParam(required = false) String region) {
+        log.info("Controller로 전달된 지역값 : " + region);
+        Map<String, Object> response = new HashMap<>();
         List<SafetyMessageVO> messageList = safetyMessageService.getSafetyMessageByRegion(region);
+        log.info(messageList.toString());
 
         if (messageList == null || messageList.isEmpty()) {
-            // 메시지가 없는 경우
-            model.addAttribute("errorMessage", region + " 지역에 메시지가 존재하지 않습니다.");
-            model.addAttribute("hasMessages", false);
+            response.put("errorMessage", region + " 지역에 메시지가 존재하지 않습니다.");
+            response.put("hasMessages", false);
         } else {
-            // 메시지가 존재하는 경우
-            model.addAttribute("messageList", messageList);
-            model.addAttribute("hasMessages", true);
+            response.put("messageList", messageList);
+            response.put("hasMessages", true);
         }
-
-        return model;
+        log.info(response.toString());
+        return response;
     }
+
 
 }

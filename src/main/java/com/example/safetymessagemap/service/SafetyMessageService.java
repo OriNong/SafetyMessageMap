@@ -77,6 +77,7 @@ public class SafetyMessageService {
             int processedCount = 0;
             for (JsonNode messageNode : bodyNode) {
                 SafetyMessageVO message = jsonArrayToVO(messageNode);
+                log.info(message.toString());
                 upsertMessage(message);
                 processedCount++;
             }
