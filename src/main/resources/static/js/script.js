@@ -184,4 +184,7 @@ xButton.style.display = 'block';
 xButton.addEventListener('click', () => {
     window.location.reload();
 });
-
+function showAbout() {
+    document.getElementById('korea-map').style.display = 'none';
+    document.getElementById('about').style.display = 'block';
+}

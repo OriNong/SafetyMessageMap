@@ -6,7 +6,18 @@ body {
     background-color: #f4f4f4;
     overflow: hidden;
 }
-
+#about {
+    max-width: 1200px; /* 가로 길이 확대 */
+    margin: 50px auto;
+    padding: 60px; /* 상자 내부 패딩 확장 */
+    background-color: #f9f9f9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* 둥근 모서리 확대 */
+    line-height: 2; /* 행간 조정 */
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    display: none;
+}
 #korea-map, #region-map, #msgBox {
     position: absolute;
     top: 50%;

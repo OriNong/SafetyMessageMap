@@ -11,8 +11,7 @@
 <header>
     <h1>긴급재난문자</h1>
     <nav>
-        <a href="#about">소개</a>
-        <a href="#board">게시판</a>
+        <a href="#about" onclick="showAbout()" >소개</a>
         <a href="javascript:void(0);" onclick="openAddressPopup()">검색</a>
     </nav>
 </header>
@@ -25,6 +24,25 @@
     </div>
 
 <main>
+
+<div id="about">
+  <div id="about-content">
+  <div id="text-section">
+        <h2>재난문자 조회 시스템</h2>
+        <p>
+  이 웹사이트는 <strong>행정안전부 긴급재난문자 오픈 API</strong>를 통해 <strong>실시간 재난문자 정보</strong>를 제공하는 플랫폼입니다. 코로나 시국 동안 잦은 긴급재난문자 발송으로 인해 많은 사람들이 피로감을 느끼고 알림 기능을 꺼두면서, 정작 필요할 때 중요한 재난문자를 확인하지 못하는 문제를 해결하고자 개발되었습니다.
+</p>
+<p>
+  사용자는 <strong>내가 사는 지역</strong> 또는 <strong>여행 예정 지역</strong>의 당일 발송된 긴급재난문자를 조회하여, 필요한 정보를 손쉽게 확인할 수 있습니다.
+</p>
+      </div>
+       <div id="image-section">
+
+        <img src="/image/msgBox.png" alt="메시지 박스 화면 예시" />
+      </div>
+    </div>
+    </div>
+
     <div id="map-container">
         <?xml version="1.0"?>
         <svg id="korea-map"
