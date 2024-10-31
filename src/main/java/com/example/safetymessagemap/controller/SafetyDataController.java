@@ -35,7 +35,7 @@ public class SafetyDataController {
         log.info(messageList.toString());
 
         if (messageList == null || messageList.isEmpty()) {
-            response.put("errorMessage", region + " 지역에 메시지가 존재하지 않습니다.");
+            response.put("errorMessage","현재" + region + " 지역에 발송된 메시지가 없습니다.");
             response.put("hasMessages", false);
         } else {
             response.put("messageList", messageList);

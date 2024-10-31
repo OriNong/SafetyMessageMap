@@ -6,24 +6,14 @@ function jusoCallBack(roadFullAddr) { // 주소 선택시 값 반환
     document.getElementById("address").innerText = roadFullAddr;
 
     var addressParts = roadFullAddr.split(' ');
+    console.log(addressParts);
     var region = addressParts[0]; // 시도명
     var subregion = addressParts[1]; // 시군구명
+    var fullRegion = getSidoFullName(region) + ' ' + subregion;
+    document.getElementById('korea-map').style.display = 'none';
+    msgBox.style.visibility = 'visible';
+    loadMessageByRegion(fullRegion);
 
-    fetch("/disaster", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            'region': region,
-            'subregion': subregion
-        })
-    })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("disaster-message").innerText = data;
-    })
-    .catch(error => console.error('Error:', error));
 }
 
 // 초기 대한민국 지도 클릭 이벤트 설정
@@ -31,6 +21,20 @@ function initKoreaMapClickEvents() {
     const koreaPaths = document.querySelectorAll('#korea-map path');
     koreaPaths.forEach((path) => {
         path.addEventListener('click', () => handleKoreaMapClick(path));
+    });
+}
+
+// 초기 대한민국 지도 hover시 h1 텍스트 지역명으로 변경
+function initKoreaMapHoverEvents() {
+    const koreaPaths = document.querySelectorAll('#korea-map path');
+    const headerH1Text = document.getElementById('headerH1Text');
+    koreaPaths.forEach((path) => {
+        path.addEventListener('mouseenter', () => {
+            const id = path.getAttribute('id');
+            console.log(id);
+            headerH1Text.textContent = getRegionNameFromId(id);
+        });
+        path.addEventListener('mouseleave', () => {headerH1Text.textContent = '긴급재난문자'});
     });
 }
 
@@ -52,6 +56,7 @@ async function loadRegionMap(region) {
         document.getElementById('region-map').innerHTML = data;
         document.getElementById('region-map').style.display = 'block';
         initRegionMapClickEvents(regionName);
+        initRegionMapHoverEvents(regionName);
         console.log("loadMap 전달 : " + region);
     } catch (error) {
         console.error('Error loading the map:', error);
@@ -63,6 +68,22 @@ function initRegionMapClickEvents(parentRegion) {
     const regionPaths = document.querySelectorAll('#region-map path');
     regionPaths.forEach((path) => {
         path.addEventListener('click', () => handleRegionMapClick(path, parentRegion));
+    });
+}
+
+// 상세 지도 hover 이벤트 설정
+function initRegionMapHoverEvents(parentRegion) {
+    const regionPaths = document.querySelectorAll('#region-map path');
+    const headerH1Text = document.getElementById('headerH1Text');
+    regionPaths.forEach((path) => {
+        const id = path.getAttribute('id');
+        console.log(id);
+        path.addEventListener('mouseenter', () => {
+            headerH1Text.textContent = getRegionNameFromId(id);
+        });
+        path.addEventListener('mouseleave', () => {
+            headerH1Text.textContent = '긴급재난문자';
+        });
     });
 }
 
@@ -97,7 +118,6 @@ function updateRegionUI(fullRegionName) {
 // 재난 메시지 서버에서 가져오기
 async function loadMessageByRegion(fullRegionName) {
     // fullRegionName 파라미터로 컨트롤러 호출
-    console.log(fullRegionName);
     fetch('/message?region=' + encodeURIComponent(fullRegionName))
         .then(response => response.json())
         .then(model => {
@@ -112,9 +132,7 @@ async function loadMessageByRegion(fullRegionName) {
       `;
             } else {
                 messagesWrapper.innerHTML = ''; // 기존 내용 비우기
-                console.log(model.messageList);
                 model.messageList.forEach(message => {
-                    console.log(message.msgCn);
                     const messageBox = document.createElement('div');
                     // 긴급 레벨에 따른 클래스 설정 (안전안내 = level1로 가정)
                     messageBox.className = `message-box emergency-level1`;
@@ -172,10 +190,21 @@ function getRegionNameFromId(id) {
     };
     return regionNames[id] || id;
 }
-
+function getSidoFullName(region) {
+    const regionNames = {
+        "강원": "강원도", "서울": "서울특별시", "부산": "부산광역시",
+        "인천": "인천광역시", "대구": "대구광역시", "대전": "대전광역시",
+        "울산": "울산광역시", "광주": "광주광역시", "경기": "경기도",
+        "충북": "충청북도", "충남": "충청남도", "전북": "전라북도",
+        "전남": "전라남도", "경북": "경상북도", "경남": "경상남도",
+        "제주": "제주특별자치도", "세종": "세종특별자치시"
+    };
+    return regionNames[region] || region;
+}
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
     initKoreaMapClickEvents();
+    initKoreaMapHoverEvents();
 });
 
 
@@ -185,6 +214,7 @@ xButton.addEventListener('click', () => {
     window.location.reload();
 });
 function showAbout() {
+    xButton.style.display = 'block';
     document.getElementById('korea-map').style.display = 'none';
     document.getElementById('about').style.display = 'block';
 }

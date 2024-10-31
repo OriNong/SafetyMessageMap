@@ -9,19 +9,14 @@
 
 <body>
 <header>
-    <h1>긴급재난문자</h1>
+    <h1 id="headerH1Text">긴급재난문자</h1>
     <nav>
         <a href="#about" onclick="showAbout()" >소개</a>
         <a href="javascript:void(0);" onclick="openAddressPopup()">검색</a>
     </nav>
 </header>
 
-<div id="msgBox">
-        <div id="address-section">
-            <p>선택된 주소: <span id="address"></span></p>
-        </div>
-        <div class="messages-wrapper"></div>
-    </div>
+
 
 <main>
 
@@ -111,7 +106,15 @@
         </svg>
 
         <div id="xButton">초기 화면</div>
-        <div id="region-map"></div>
+        <div class="split-view">
+            <div id="region-map"></div>
+        <div id="msgBox">
+            <div id="address-section">
+                <p>선택된 주소: <span id="address"></span></p>
+            </div>
+            <div class="messages-wrapper"></div>
+        </div>
+        </div>
     </div>
 </main>
 <script src="/js/script.js"></script>

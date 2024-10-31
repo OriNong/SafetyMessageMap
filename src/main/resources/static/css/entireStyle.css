@@ -108,13 +108,19 @@ main {
 #region-map path.clicked {
     fill: yellowgreen;
 }
+
 /* 메시지 박스 스타일 */
 #msgBox {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
 }
-
+.split-view {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 150px); /* header 높이 고려 */
+    margin-top: 20px;
+}
 .messages-wrapper {
     margin-top: 20px;
 }
